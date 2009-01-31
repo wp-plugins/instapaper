@@ -9,7 +9,7 @@ Allows you to automatically display Instapaper 'Read Later' links next to your b
 
 == Description ==
 
-This plugin allows you to display Instapaper ‘Read later’ links next to each post on your blog just like on [Give Me Something To Read](http://givemesomethingtoread.com/). You can either automatically insert the links adjacent to your blog entries, or you can just use the template tag to insert the links wherever you like.
+This plugin allows you to display Instapaper 'Read later' links next to each post on your blog just like on [Give Me Something To Read](http://givemesomethingtoread.com/). You can either automatically insert the links adjacent to your blog entries, or you can just use the template tag to insert the links wherever you like.
 
 == Installation ==
 
