@@ -48,3 +48,8 @@ Check out [instapaper.com](http://instapaper.com/) for all the details and to si
 = Is this an official Instapaper plugin? =
 
 No.
+
+== Changelog ==
+
+= 1.0 =
+* Initial release.
