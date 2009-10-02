@@ -1,6 +1,7 @@
 === Instapaper Read Later Links ===
 Contributors: johnbillion
 Tags: instapaper, bookmark, tumblr, read later, social bookmarking
+Donate link: http://lud.icro.us/donations/
 Requires at least: 2.3
 Tested up to: 2.7
 Stable tag: trunk
