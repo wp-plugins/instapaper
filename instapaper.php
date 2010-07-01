@@ -3,7 +3,7 @@
 Plugin Name: Instapaper Read Later Links
 Description: Automatically display Instapaper 'Read Later' links next to your blog posts.
 Plugin URI:  http://lud.icro.us/wordpress-plugin-embed-instapaper/
-Version:     1.0
+Version:     1.0.1
 License:     GNU General Public License
 Author:      John Blackbourn
 Author URI:  http://johnblackbourn.com/
@@ -29,6 +29,7 @@ class Instapaper {
 		add_action( 'admin_menu',           array( &$this, 'admin_menu' ) );
 		add_action( 'init',                 array( &$this, 'script' ) );
 		add_action( 'wp_head',              array( &$this, 'style' ) );
+		add_action( 'admin_init',           array( &$this, 'register_setting' ) );
 		add_filter( 'the_excerpt',          array( &$this, 'content' ) );
 		add_filter( 'the_content',          array( &$this, 'content' ) );
 		add_filter( 'ozh_adminmenu_icon',   array( &$this, 'icon' ) );
@@ -36,8 +37,13 @@ class Instapaper {
 
 		$this->plugin = array(
 			'url' => '' . WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ),
-			'ver' => '1.0'
+			'ver' => '1.0.1'
 		);
+	}
+
+	function register_setting() {
+		register_setting( 'read_later', 'read_later_filter' );
+		register_setting( 'read_later', 'read_later_css' );
 	}
 
 	function admin_menu() {
@@ -94,9 +100,7 @@ class Instapaper {
 	<h2>Read Later Links Settings</h2>
 
 	<form method="post" action="options.php">
-	<?php wp_nonce_field( 'update-options' ); ?>
-	<input type="hidden" name="action" value="update" />
-	<input type="hidden" name="page_options" value="read_later_filter,read_later_css" />
+	<?php settings_fields( 'read_later' ); ?>
 
 	<table class="form-table">
 	<tr valign="top">

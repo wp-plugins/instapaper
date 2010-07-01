@@ -2,8 +2,8 @@
 Contributors: johnbillion
 Tags: instapaper, bookmark, tumblr, read later, social bookmarking
 Donate link: http://lud.icro.us/donations/
-Requires at least: 2.3
-Tested up to: 2.9.9
+Requires at least: 2.7
+Tested up to: 3.0
 Stable tag: trunk
 
 Allows you to automatically display Instapaper 'Read Later' links next to your blog posts.
@@ -51,6 +51,9 @@ Check out [instapaper.com](http://instapaper.com/) for all the details and to si
 No.
 
 == Changelog ==
+
+= 1.0.1 =
+* Update settings screen to ensure compatibility with WPMU 2.9.
 
 = 1.0 =
 * Initial release.
