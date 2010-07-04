@@ -26,7 +26,7 @@ If you do this, you'll then need to add the following code to your theme in orde
 
 `<php do_action('read_later'); ?>`
 
-The code must be inside the WordPress loop.
+The code should be inside the WordPress loop. If used outside the loop, it accepts an optional second parameter for the post ID.
 
 == Screenshots ==
 
@@ -46,14 +46,29 @@ From instapaper.com:
 
 Check out [instapaper.com](http://instapaper.com/) for all the details and to sign up.
 
+= Why do the 'Read Later' buttons display incorrectly for some people? =
+
+The buttons do not display correctly for visitors using Internet Explorer. Instapaper chooses not to support Internet Explorer, it has nothing to do with this plugin.
+
+Additionally, the new white button doesn't display correctly for some Windows users. I have contacted Instapaper about this issue but have yet to receive a reply.
+
 = Is this an official Instapaper plugin? =
 
 No.
 
 == Changelog ==
 
+= 1.1 =
+* Option to choose which style 'Read Later' button to use.
+* Misc plugin tweaks.
+
 = 1.0.1 =
 * Update settings screen to ensure compatibility with WPMU 2.9.
 
 = 1.0 =
 * Initial release.
+
+== Upgrade Notice ==
+
+= 1.1 =
+There are now two different styles of 'Read Later' buttons to choose from.
