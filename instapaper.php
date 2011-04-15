@@ -3,7 +3,7 @@
 Plugin Name: Instapaper Read Later Links
 Description: Automatically display Instapaper 'Read Later' links next to your blog posts.
 Plugin URI:  http://lud.icro.us/wordpress-plugin-embed-instapaper/
-Version:     1.1
+Version:     1.2
 Author:      John Blackbourn
 Author URI:  http://johnblackbourn.com/
 
@@ -19,11 +19,11 @@ Author URI:  http://johnblackbourn.com/
 
 */
 
-class Instapaper {
+class InstapaperReadLater {
 
 	var $plugin;
 
-	function Instapaper() {
+	function InstapaperReadLater() {
 		add_action( 'read_later',         array( $this, 'read_later' ) );
 		add_action( 'admin_menu',         array( $this, 'admin_menu' ) );
 		add_action( 'init',               array( $this, 'script' ) );
@@ -34,17 +34,16 @@ class Instapaper {
 		add_filter( 'ozh_adminmenu_icon', array( $this, 'icon' ) );
 
 		$this->plugin = array(
-			'url' => '' . WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ),
-			'ver' => '1.1',
+			'url' => WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ),
+			'ver' => '1.2',
 			'opt' => get_option( 'read_later' )
 		);
 
-		// Upgrade options from 1.0.x to 1.1:
+		// Upgrade options from 1.0.x:
 		if ( empty( $this->plugin['opt'] ) ) {
 			$this->plugin['opt'] = array(
-				'css'    => get_option( 'read_later_css', "float: right;\nmargin: 5px 0px 10px 15px;" ),
-				'filter' => get_option( 'read_later_filter', 'all' ),
-				'button' => 'http://www.instapaper.com/javascript/embed.js'
+				'css'    => get_option( 'read_later_css', "float: right;\nmargin: 0px 0px 10px 15px;" ),
+				'filter' => get_option( 'read_later_filter', 'all' )
 			);
 			update_option( 'read_later', $this->plugin['opt'] );
 			delete_option( 'read_later_css' );
@@ -58,7 +57,13 @@ class Instapaper {
 	}
 
 	function admin_menu() {
-		add_options_page( 'Instapaper Read Later Links Settings', 'Read Later Links', 'manage_options', 'instapaper', array( $this, 'settings' ) );
+		add_options_page(
+			__( 'Instapaper Read Later Links Settings', 'instapaper_read_later' ),
+			__( 'Read Later Links', 'instapaper_read_later' ),
+			'manage_options',
+			'instapaper_read_later',
+			array( $this, 'settings' )
+		);
 	}
 
 	function style() {
@@ -77,8 +82,8 @@ class Instapaper {
 
 	function script() {
 		wp_enqueue_script(
-			'instapaper',
-			$this->plugin['opt']['button'],
+			'read_later',
+			'http://www.instapaper.com/javascript/embed2.js',
 			null,
 			$this->plugin['ver']
 		);
@@ -106,43 +111,38 @@ class Instapaper {
 	}
 
 	function settings() {
-		$buttons = array(
-			1 => 'http://www.instapaper.com/javascript/embed.js',
-			2 => 'http://www.instapaper.com/javascript/embed2.js'
-		);
 		?>
 
 	<div class="wrap">
 	<?php screen_icon(); ?>
-	<h2><?php _e( 'Instapaper Read Later Links Settings', 'instapaper' ); ?></h2>
+	<h2><?php _e( 'Instapaper Read Later Links Settings', 'instapaper_read_later' ); ?></h2>
 
 	<form method="post" action="options.php">
 	<?php settings_fields( 'read_later' ); ?>
 
 	<table class="form-table">
 	<tr valign="top">
-		<th scope="row"><?php _e( 'Automatic &#8216;Read Later&#8217; Link Placement', 'instapaper' ); ?></th>
+		<th scope="row"><?php _e( 'Automatic &#8216;Read Later&#8217; Link Placement', 'instapaper_read_later' ); ?></th>
 		<td>
-			<p><label><input type="radio" name="read_later[filter]" <?php checked( 'all', $this->plugin['opt']['filter'] ); ?> value="all" /> <?php _e( 'I&#8217;d like them everywhere!', 'instapaper' ); ?></label></p>
-			<p><label><input type="radio" name="read_later[filter]" <?php checked( 'single', $this->plugin['opt']['filter'] ); ?> value="single" /> <?php _e( 'Just on single posts and pages', 'instapaper' ); ?></label></p>
-			<p><label><input type="radio" name="read_later[filter]" <?php checked( 'nonsingle', $this->plugin['opt']['filter'] ); ?> value="nonsingle" /> <?php _e( 'Just on my home page and archives', 'instapaper' ); ?></label></p>
-			<p><label><input type="radio" name="read_later[filter]" <?php checked( 'false', $this->plugin['opt']['filter'] ); ?> value="false" /> <?php _e( 'Don&#8217;t automatically display them at all', 'instapaper' ); ?></label><br />
-			<span class="description"><?php printf( __( 'You&#8217;ll need to add the %s template tag inside the WordPress loop in this case.', 'instapaper' ), "<code>&lt;?php do_action('read_later'); ?&gt;</code>" ); ?></span></p>
+			<p><label><input type="radio" name="read_later[filter]" <?php checked( 'all', $this->plugin['opt']['filter'] ); ?> value="all" /> <?php _e( 'I&#8217;d like them everywhere!', 'instapaper_read_later' ); ?></label></p>
+			<p><label><input type="radio" name="read_later[filter]" <?php checked( 'single', $this->plugin['opt']['filter'] ); ?> value="single" /> <?php _e( 'Just on single posts and pages', 'instapaper_read_later' ); ?></label></p>
+			<p><label><input type="radio" name="read_later[filter]" <?php checked( 'nonsingle', $this->plugin['opt']['filter'] ); ?> value="nonsingle" /> <?php _e( 'Just on my home page and archives', 'instapaper_read_later' ); ?></label></p>
+			<p><label><input type="radio" name="read_later[filter]" <?php checked( 'false', $this->plugin['opt']['filter'] ); ?> value="false" /> <?php _e( 'Don&#8217;t automatically display them at all', 'instapaper_read_later' ); ?></label><br />
+			<span class="description"><?php printf( __( 'You&#8217;ll need to add the %s template tag inside the WordPress loop in this case.', 'instapaper_read_later' ), "<code>&lt;?php do_action('read_later'); ?&gt;</code>" ); ?></span></p>
 		</td>
 	</tr>
 	<tr valign="top">
-		<th scope="row"><?php _e( 'Button Style', 'instapaper' ); ?></th>
+		<th scope="row"><?php _e( 'Button Style', 'instapaper_read_later' ); ?></th>
 		<td>
-			<?php foreach ( $buttons as $i => $src ) { ?>
-				<p><label><input type="radio" name="read_later[button]" <?php checked( $src, $this->plugin['opt']['button'] ); ?> value="<?php echo esc_attr( $src ); ?>" /> <img src="<?php echo $this->plugin['url']; ?>/button<?php echo $i; ?>.png" style="vertical-align:middle" alt="" /></label></p>
-			<?php } ?>
+			<p><?php _e( 'There is currently only one button style available (shown below). The original black version has been deprecated by Instapaper and no longer works.', 'instapaper_read_later' ); ?></p>
+			<p><img src="<?php echo $this->plugin['url']; ?>/button2.png" style="vertical-align:middle" alt="" /></p>
 		</td>
 	</tr>
 	<tr valign="top">
-		<th scope="row"><?php _e( 'Custom CSS', 'instapaper' ); ?></th>
+		<th scope="row"><?php _e( 'Custom CSS', 'instapaper_read_later' ); ?></th>
 		<td>
 			<p><textarea name="read_later[css]" class="code" rows="4" cols="50"><?php echo esc_attr( $this->plugin['opt']['css'] ); ?></textarea>
-			<p class="description"><?php _e( 'You can specify your own CSS for the &#8216;Read Later&#8217; links here. Note that the only CSS rules that will have real effect are margins and positions as the actual link is inside an iframe and therefore unstylable. If present, this CSS is applied regardless of the automatic placement setting.', 'instapaper' ); ?></p>
+			<p class="description"><?php _e( 'You can specify your own CSS for the &#8216;Read Later&#8217; links here. Note that the only CSS rules that will have real effect are margins and positions as the actual link is inside an iframe and therefore unstylable. If present, this CSS is applied regardless of the automatic placement setting.', 'instapaper_read_later' ); ?></p>
 			</p>
 		</td>
 	</tr>
@@ -157,15 +157,15 @@ class Instapaper {
 	}
 
 	function icon( $hook ) {
-		if ( $hook == 'instapaper' )
+		if ( $hook == 'instapaper_read_later' )
 			return $this->plugin['url'] . '/icon.png';
 		return $hook;
 	}
 
 }
 
-load_plugin_textdomain( 'instapaper', PLUGINDIR . '/' . dirname( plugin_basename( __FILE__ ) ), dirname( plugin_basename( __FILE__ ) ) ); # eugh
+load_plugin_textdomain( 'instapaper_read_later', false, dirname( plugin_basename( __FILE__ ) ) );
 
-$instapaper = new Instapaper();
+$read_later = new InstapaperReadLater;
 
 ?>

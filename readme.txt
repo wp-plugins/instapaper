@@ -3,7 +3,7 @@ Contributors: johnbillion
 Tags: instapaper, bookmark, tumblr, read later, social bookmarking
 Donate link: http://lud.icro.us/donations/
 Requires at least: 2.7
-Tested up to: 3.0
+Tested up to: 3.1.1
 Stable tag: trunk
 
 Allows you to automatically display Instapaper 'Read Later' links next to your blog posts.
@@ -20,9 +20,9 @@ This plugin allows you to display Instapaper 'Read later' links next to each pos
 
 = Usage =
 
-By default, this plugin adds a 'Read Later' link adjacent to each blog entry on your blog. If you wish to control where the links are displayed, you can go to the Settings -> Read Later Links menu and disable the automatic links.
+By default, this plugin adds a 'Read Later' link adjacent to each blog entry on your blog. You can control where the 'Read Later' links show up by going to the Settings -> Read Later Links menu in WordPress.
 
-If you do this, you'll then need to add the following code to your theme in order insert a 'Read Later' link for each post:
+If you choose not to automatically display them, you'll need to add the following code to your theme in order insert the 'Read Later' link for each post:
 
 `<php do_action('read_later'); ?>`
 
@@ -50,13 +50,14 @@ Check out [instapaper.com](http://instapaper.com/) for all the details and to si
 
 The buttons do not display correctly for visitors using Internet Explorer. Instapaper chooses not to support Internet Explorer, it has nothing to do with this plugin.
 
-Additionally, the new white button doesn't display correctly for some Windows users. I have contacted Instapaper about this issue but have yet to receive a reply.
-
 = Is this an official Instapaper plugin? =
 
 No.
 
 == Changelog ==
+
+= 1.2 =
+* Update to the new style button from Instapaper. The original black version no longer works.
 
 = 1.1 =
 * Option to choose which style 'Read Later' button to use.
