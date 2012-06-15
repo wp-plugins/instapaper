@@ -3,7 +3,7 @@ Contributors: johnbillion
 Tags: instapaper, bookmark, tumblr, read later, social bookmarking
 Donate link: http://lud.icro.us/donations/
 Requires at least: 2.7
-Tested up to: 3.3
+Tested up to: 3.4
 Stable tag: trunk
 
 Allows you to automatically display Instapaper 'Read Later' links next to your blog posts.
